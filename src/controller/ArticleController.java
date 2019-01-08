@@ -32,6 +32,7 @@ System.out.println("_____article·Î µé¾î¿È....");
 		switch(cmd) {
 		case "move" :
 			Command.move(request, response,dir,page);
+		
 		}
 	}
 

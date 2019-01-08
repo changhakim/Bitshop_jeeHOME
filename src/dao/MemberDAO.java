@@ -1,10 +1,10 @@
-package service;
+package dao;
 
 import java.util.ArrayList;
 
 import domain.MemberBean;
 
-public interface MemberService {
+public interface MemberDAO {
 
 	public void  joinMember(MemberBean member);
 

@@ -1,11 +1,10 @@
-package service;
+package dao;
 
 import java.util.ArrayList;
 
 import domain.AccountBean;
 
-public interface AccountService {
-
+public interface AccountDAO {
 
 	public void openAccount(AccountBean account);
 	public String createAccountNum();
@@ -21,6 +20,4 @@ public interface AccountService {
 	public void withDraw(String accountNum,int money);
 	
 	public void deleteAccount(String accountNum);
-
-	
 }

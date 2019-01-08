@@ -12,7 +12,7 @@
 		</tr>
 		<tr>
 			<td colspan="2">
-				<%@ include file="navi-var.jsp" %>
+				<%@ include file="navi-bar.jsp" %>
 			
 			</td>
 			
@@ -24,7 +24,7 @@
 			<td>
 				<div id="content">
 				<%
-				String compo = request.getAttribute("compo").toString();
+				String compo = String.valueOf(request.getAttribute("compo"));
 				switch(compo){
 				case "login-success":
 					%>

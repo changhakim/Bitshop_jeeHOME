@@ -1,31 +1,37 @@
 package service;
 
-import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Random;
 
+import dao.AccountDAOImpl;
 import domain.AccountBean;
 
 public class AccountServiceImpl implements AccountService {
+	private static AccountServiceImpl instance = new AccountServiceImpl();
+	 private AccountServiceImpl() {}
+	public static AccountServiceImpl getInstance() {return instance;}
 
-	private ArrayList<AccountBean> list;
-	public AccountServiceImpl() {
-		list = new ArrayList<>();
-	}
-	
-	
+
+
+
+
+
+
+
+
+
+
+
+
 	@Override
-	public String openAccount(int money) {
+	public void openAccount(AccountBean account) {
+		System.out.println("계좌번호--"+account.getAccountNum());
+		System.out.println("날짜--"+account.getToday());
+		System.out.println("잔액--"+account.getMoney());
 		
-		AccountBean account = new AccountBean();
-	
-		account.setAccountNum(createAccountNum());
-		account.setMoney(money);
-		account.setToday(findDate());
-		String a = account.getAccountNum();
-		list.add(account);
-		return a;
+		AccountDAOImpl.getInstance().openAccount(account);
 	}
 
 	
@@ -33,13 +39,13 @@ public class AccountServiceImpl implements AccountService {
 	public AccountBean findByAccountNum(String accountNum) {
 		AccountBean account = new AccountBean();
 		
-		for(int i =0;i<list.size();i++) {
+		/*for(int i =0;i<list.size();i++) {
 			if(list.get(i).getAccountNum().equals(accountNum)) {
 				account = list.get(i);
 				break;
 			}
-		}
-		System.out.println(account.toString()+"어카운트스트링");
+		}*/
+		
 		return account;
 	}
 	

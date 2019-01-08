@@ -23,7 +23,7 @@ public class AccountController extends HttpServlet {
    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		AccountService accountService = new AccountServiceImpl();
+		AccountBean account = null;
 		String dir = request.getParameter("dir");
 		if(dir == null){
 			int a = request.getServletPath().indexOf(".");
@@ -32,25 +32,30 @@ public class AccountController extends HttpServlet {
 		String cmd = request.getParameter("cmd");
 		cmd = (cmd == null)?"move":cmd;
 		String page = request.getParameter("page");
-		page = (page == null)?"main":page;
-		
+		page = "main";
+		String dest = request.getParameter("dest");
+		System.out.println("1.dest======"+dest);
 		switch(cmd) {
 		case "move": 
-			
+			System.out.println("==============openform==dest"+dest);
+			request.setAttribute("dest", dest);
 			Command.move(request, response,dir,page);
 			break;
 		case "open-account":
-			System.out.println(dir+"-----dir-----");
-			System.out.println(page+"------page-----");
 			
+			account = new AccountBean();
 			String money = request.getParameter("money");
-			System.out.println("계좌개설시 입금한 돈 ?"+money);
-			String accNum = accountService.openAccount(Integer.parseInt(money));
+			account.setAccountNum(AccountServiceImpl.getInstance().createAccountNum());
+			account.setToday(AccountServiceImpl.getInstance().findDate());
+			account.setMoney(Integer.parseInt(money));
+			AccountServiceImpl.getInstance().openAccount(account);
 			
-			AccountBean acc = accountService.findByAccountNum(accNum);
-			System.out.println(acc.toString()+"보여줘컨트롤러투스티링");
+			if(dest==null) {
+				dest="open-result";
+			}
 			
-			request.setAttribute("acc", acc);
+			request.setAttribute("dest", dest);
+			request.setAttribute("acc", account);
 			
 			
 			Command.move(request, response, dir, page);
